@@ -5,11 +5,11 @@ HOST = "localhost"
 PORT = 8003
 
 def main():
-    while True:
-        try:
-            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-                s.bind((HOST, PORT))
-                s.listen()
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind((HOST, PORT))
+        s.listen()
+        while True:
+            try:
                 conn, addr = s.accept()
                 with conn:
                     print(f"Connected by {addr}")
@@ -18,9 +18,9 @@ def main():
                         if not data:
                             break
                         conn.sendall(data)
-        except KeyboardInterrupt:
-            print("Bye")
-            break
+            except KeyboardInterrupt:
+                print("Bye Bye")
+                break
 
 if __name__ == '__main__':
     main()
